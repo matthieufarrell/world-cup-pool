@@ -1,0 +1,19 @@
+# Render Blueprint — provisions the web service + free Postgres in one go.
+# In Render: New + > Blueprint > point it at this repo. It reads this file,
+# creates the database, wires DATABASE_URL into the web service, and deploys.
+databases:
+  - name: wc-pool-db
+    plan: free
+
+services:
+  - type: web
+    name: world-cup-pool
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: wc-pool-db
+          property: connectionString
