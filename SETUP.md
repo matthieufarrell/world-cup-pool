@@ -1,5 +1,18 @@
 # World Cup Bracket Pool — Deploy on Render
 
+## ✅ Live now
+
+- **Share this link:** https://world-cup-pool-o13z.onrender.com
+- Render web service: `srv-d91880gg4nts73c8tf6g` (region: frankfurt, free)
+- Render Postgres: `dpg-d9186uok1i2s738a2qc0-a` (`wc-pool-db`, free)
+- Source repo (public): https://github.com/matthieufarrell/world-cup-pool
+
+**Auto-deploy is on:** any `git push` to `main` triggers a fresh deploy.
+
+> The steps below are the original how-to (kept for reference / re-creating it).
+
+---
+
 One Render web service serves the page **and** the shared data (Postgres), so
 everyone opens the same URL and all brackets + results pool together. No API
 keys to paste, no separate static host.
