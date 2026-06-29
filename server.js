@@ -5,10 +5,13 @@ const { Pool } = require('pg');
 const app = express();
 app.use(express.json({ limit: '1mb' }));
 
-const isLocal = !process.env.DATABASE_URL || /localhost|127\.0\.0\.1/.test(process.env.DATABASE_URL);
+const DB_URL = process.env.DATABASE_URL || '';
+// External Render Postgres URLs (host *.render.com) require SSL; internal and
+// local connections don't.
+const needsSsl = /\.render\.com|sslmode=require/.test(DB_URL);
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: isLocal ? false : { rejectUnauthorized: false }
+  connectionString: DB_URL,
+  ssl: needsSsl ? { rejectUnauthorized: false } : false
 });
 
 async function init() {
